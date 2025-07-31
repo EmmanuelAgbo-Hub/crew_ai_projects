@@ -1,0 +1,93 @@
+
+{
+    // Name of the Codespace environment. This will appear in your Codespaces list.
+    "name": "CrewAI Agent Development Environment",
+
+    // Specifies the base Docker image for the Codespace.
+    // This image includes Python 3.11, common build tools, and Git.
+    // You can change the Python version (e.g., "python:3.10", "python:3.12") as needed.
+    // For GPU-accelerated tasks, a custom image with CUDA might be required,
+    // along with selecting a GPU-enabled Codespace machine type.
+    "image": "mcr.microsoft.com/devcontainers/python:3.11",
+
+    // Features add specific tools or functionalities to the dev container.
+    "features": {
+        // Common utilities like 'curl', 'wget', 'git' are often useful.
+        "ghcr.io/devcontainers/features/common-utils:2": {},
+        // Essential for running Docker commands inside the Codespace,
+        // which is crucial for local LLMs like Ollama or containerizing your app.
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+        // Uncomment the following if you specifically need to build Docker images
+        // using the Docker daemon from the host (e.g., for pushing to registries).
+        // "ghcr.io/devcontainers/features/docker-from-docker:2": {}
+    },
+
+    // Commands to run once after the Codespace is created and the repository is cloned.
+    // This ensures all your project's Python dependencies are installed automatically.
+    // Ensure you have a 'requirements.txt' file in your project's root directory
+    // listing all your CrewAI and other Python library dependencies.
+    "postCreateCommand": "pip install --no-cache-dir -r requirements.txt",
+
+    // Customizations for the VS Code environment within the Codespace.
+    "customizations": {
+        "vscode": {
+            // List of VS Code extensions to automatically install.
+            "extensions": [
+                "ms-python.python",        // Official Python extension for rich language support
+                "ms-toolsai.jupyter",      // For Jupyter Notebooks and interactive Python
+                "GitHub.copilot",          // If your team uses GitHub Copilot for AI-assisted coding
+                "ms-azuretools.vscode-docker", // For managing Docker containers and images within VS Code
+                "esbenp.prettier-vscode",  // Optional: For consistent code formatting
+                "redhat.vscode-yaml"       // Useful for editing YAML files like GitHub Actions workflows
+            ],
+            // VS Code settings specific to this Codespace.
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/local/bin/python",
+                "editor.formatOnSave": true,
+                "editor.tabSize": 4,
+                "files.exclude": {
+                    "**/.git": true,
+                    "**/.svn": true,
+                    "**/.hg": true,
+                    "**/CVS": true,
+                    "**/.DS_Store": true,
+                    "**/Thumbs.db": true,
+                    "**/.env": true,          // Exclude .env files from VS Code file explorer
+                    "**/__pycache__": true,   // Exclude Python cache directories
+                    "**/.pytest_cache": true, // Exclude pytest cache
+                    "**/.mypy_cache": true    // Exclude mypy cache
+                }
+            }
+        }
+    },
+
+    // Defines attributes for specific ports that might be exposed by your applications
+    // running inside the Codespace. Codespaces will automatically forward these ports.
+    "portsAttributes": {
+        "8000": { // Common for FastAPI/Uvicorn applications
+            "label": "Agent API",
+            "onAutoForward": "notify", // Notify user when port is forwarded
+            "protocol": "http"
+        },
+        "8888": { // Common for Jupyter Notebooks
+            "label": "Jupyter Notebook",
+            "onAutoForward": "openBrowser", // Automatically open in browser
+            "protocol": "http"
+        },
+        "11434": { // Default port for Ollama (local LLM server)
+            "label": "Ollama Server",
+            "onAutoForward": "notify",
+            "protocol": "http"
+        }
+    },
+
+    // Lifecycle hooks: Commands to run at different stages of the Codespace lifecycle.
+    // "onCreateCommand": "echo 'Codespace created!'", // Runs once after container is created
+    // "updateContentCommand": "git pull", // Runs when Codespace is rebuilt or updated
+    // "postAttachCommand": "echo 'Ready to code!'", // Runs every time you attach to the Codespace
+    // "postStartCommand": "echo 'Codespace started!'", // Runs every time the Codespace starts
+
+    // Optional: Specify resource limits for the Codespace (e.g., for testing smaller configurations)
+    // "containerUser": "vscode", // Or "root" if you need root privileges for certain operations
+    // "remoteUser": "vscode"
+}
