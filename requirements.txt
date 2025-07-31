@@ -1,6 +1,3 @@
-To ensure your Codespace environment is fully equipped for CrewAI development, please create a file named requirements.txt in the root directory of your GitHub repository.
-
-The content for requirements.txt should be as follows:
 
 # Core CrewAI and LangChain dependencies
 crewai==0.30.11             # The main CrewAI framework
