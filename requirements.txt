@@ -1,0 +1,53 @@
+To ensure your Codespace environment is fully equipped for CrewAI development, please create a file named requirements.txt in the root directory of your GitHub repository.
+
+The content for requirements.txt should be as follows:
+
+# Core CrewAI and LangChain dependencies
+crewai==0.30.11             # The main CrewAI framework
+langchain==0.2.5            # Core LangChain library
+langchain-community==0.2.5  # Community integrations for LangChain (e.g., local LLMs, tools)
+
+# LLM Integrations (choose based on your LLM provider)
+# If using OpenAI's API (ChatGPT, GPT-4, etc.)
+openai==1.35.13
+
+# If using local LLMs via Ollama (requires Ollama to be running, e.g., in Docker via devcontainer.json)
+ollama==0.1.8             # Uncomment if you plan to use Ollama for local models
+
+# If using other LLM providers, add their respective client libraries here:
+anthropic==0.26.0
+google-generativeai==0.7.0
+cohere==5.4.0
+
+# Web Frameworks (if your agent app has a web interface or API)
+fastapi==0.111.0            # For building REST APIs for your agents
+uvicorn==0.30.1             # ASGI server to run FastAPI applications
+
+# Environment variable management
+python-dotenv==1.0.1        # For loading environment variables from a .env file
+
+# Data Handling and Analysis (common for Data Scientists)
+pandas==2.2.2               # For data manipulation and analysis
+numpy==1.26.4               # For numerical operations
+scikit-learn==1.5.0         # For traditional ML tasks or data preprocessing
+
+# Optional: Tools for your agents (examples)
+# If agents need to browse the web
+beautifulsoup4==4.12.3
+requests==2.32.3
+
+# If agents need to interact with specific APIs, add their client libraries here:
+# For example, if an agent needs to use a specific database client:
+psycopg2-binary==2.9.9
+pymongo==4.7.2
+
+# For testing (optional, but highly recommended for robust apps)
+pytest==8.2.2
+pytest-asyncio==0.23.0
+
+# For type checking (optional, but good practice for larger projects)
+mypy==1.10.0
+
+# For code formatting and linting (optional, but good for team consistency)
+black==24.4.2
+ruff==0.4.9
